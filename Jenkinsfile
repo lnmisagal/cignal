@@ -35,7 +35,7 @@ pipeline {
                         extensions: [], userRemoteConfigs: [[credentialsId: 'GITLAB_TOKEN', 
                         url: 'https://giteam.ap-gw.net/root/cignal-storefront-api.git']]]
 
-                    //sh encoding: 'UTF-8', label: 'Check Downloaded Files', script: 'pwd && ls -lah && curl ipinfo.io/ip && hostname -l'    
+                    sh encoding: 'UTF-8', label: 'Check Downloaded Files', script: 'pwd && ls -lah && curl ipinfo.io/ip && hostname -l'
                 }
             }
         }
