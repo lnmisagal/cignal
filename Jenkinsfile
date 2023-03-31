@@ -64,5 +64,28 @@ pipeline {
                 }
             }
         }
+        stage('Deploy Image') {
+            steps {
+                withCredentials([string(credentialsId: 'DEPLOY_TOKEN', variable: 'JTLS'), usernamePassword(credentialsId: 'DOCKER', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                    sh label: 'Remote Login', script: 'docker $JTLS login -u $DOCKER_USER -p $DOCKER_PASS'
+                    sh label: 'Deploy Image', script: 'docker $JTLS service update -q --force --update-parallelism 1 --update-delay 10s cigtest-api-'+env.jtag
+                }
+            }
+        }
+    }
+    post {
+        success {
+            sh label: 'success Message', script: '/var/jenkins_home/telegram.sh "CIGNAL-API PROJECT HAVE BEEN DEPLOYED. :-) https://cigtest-api.dev.j6w.work/"'
+        }
+        failure {
+            sh label: 'failure Message', script: '/var/jenkins_home/telegram.sh "Failure to deploy PROJECT CIGTEST-API. :-("'
+
+        }
+        unstable {
+            sh label: 'unstable Message', script: '/var/jenkins_home/telegram.sh "Unstable build for CIGTEST-API."'
+        }
+        cleanup {
+            deleteDir()
+        }
     }
 }
