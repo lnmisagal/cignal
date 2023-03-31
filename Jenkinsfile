@@ -54,13 +54,13 @@ pipeline {
                     sh encoding: 'UTF-8', label: 'Initialize entrypoint', script: 'echo "ENTRYPOINT /opt/app-root/src/entrypoint.sh" >> Dockerfile'
                     sh encoding: 'UTF-8', label: 'Verify Files', script: 'cat Dockerfile && cat entrypoint.sh'
 
-                    sh encoding: 'UTF-8', label: 'build Docker image', script: 'docker build -t lnmisagal/cignal'+env.jtag+' . --no-cache'
+                    sh encoding: 'UTF-8', label: 'build Docker image', script: 'docker build -t lnmisagal/cignal'' . --no-cache'
 
                     withCredentials([usernamePassword(credentialsId: 'DOCKER', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
                         sh label: 'Remote Login', script: 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
                     }
 
-                    sh encoding: 'UTF-8', label: 'Push Docker image', script: 'docker push -q lnmisagal/cignal'+env.jtag
+                    sh encoding: 'UTF-8', label: 'Push Docker image', script: 'docker push -q lnmisagal/cignal'
                 }
             }
         }
