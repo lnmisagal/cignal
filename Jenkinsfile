@@ -44,7 +44,7 @@ pipeline {
                 script {
                     sh encoding: 'UTF-8', label: 'Initialize Dockerfile', script: 'echo "FROM lnmisagal/cignal" > Dockerfile'  
                     //#sh encoding: 'UTF-8', label: 'Initialize Dockerfile', script: 'echo "COPY . ." >> Dockerfile'
-		    sh encoding: 'UTF-8', label: 'Initialize Dockerfile', script: 'echo "COPY --chown=1001:0 . ." >> Dockerfile
+		    sh encoding: 'UTF-8', label: 'Initialize Dockerfile', script: 'echo "COPY --chown=1001:0 . ." >> Dockerfile'
 		    sh encoding: 'UTF-8', label: 'Initialize Dockerfile', script: 'echo "USER root" >> Dockerfile'
                     //#sh encoding: 'UTF-8', label: 'Initialize Dockerfile', script: 'echo "RUN chmod 777 *" >> Dockerfile' 
                     sh encoding: 'UTF-8', label: 'Initialize Dockerfile', script: 'echo "RUN composer update" >> Dockerfile'  
